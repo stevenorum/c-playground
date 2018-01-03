@@ -1,0 +1,6 @@
+Basic setup stuff most people reading this have probably already done:
+- Install gcc and all that jazz
+-- https://stackoverflow.com/questions/2603489/how-do-i-compile-a-c-file-on-my-mac
+-- https://stackoverflow.com/questions/32337643/how-to-run-c-program-on-mac-os-x-using-terminal/32338889
+
+http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
