@@ -16,5 +16,9 @@ The following are a bunch of places from which I've grabbed sample code.  I'll a
 
 - [Colby College Makefile tutorial](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/): This makes up the vast majority of the source for [makefiles_intro](makefiles_intro/)
 
+### General references used
+
+- https://fresh2refresh.com/c-programming/c-basic-program/
+
 ### StackOverflow and similar
 - https://stackoverflow.com/questions/1950926/create-directories-using-make-file
