@@ -35,7 +35,7 @@ ls: hellomake: No such file or directory
 %
 ```
 
-### Makefile #1:
+### [Makefile #1](Makefile.1):
 
 This is the most basic Makefile.  It does exactly the same thing as the command-line call above.
 
@@ -64,7 +64,7 @@ Hello makefiles!
 %
 ```
 
-### Makefile #2:
+### [Makefile #2](Makefile.2):
 
 This is similar to #1, but a bit better.  First, it specifies its compiler and default flags in variables at the top, so that if more things get added and then you want to change these, you only need to chenge them in one place.  Second, it's compiling the source code into object files first, then generating the actual executable.  I don't think this makes any real difference for a tiny project like this, but it probably adds efficiency for larger projects when you don't always want to have to recompile every piece because another one changed.
 
@@ -109,7 +109,7 @@ ls: hellomake: No such file or directory
 % 
 ```
 
-### Makefile #3:
+### [Makefile #3](Makefile.3):
 
 See [Colby's tutorial](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/) for an explanation of how this differs from the above.
 
@@ -126,7 +126,7 @@ hellomake: hellomake.o hellofunc.o
 	gcc -o hellomake hellomake.o hellofunc.o -I.
 ```
 
-### Makefile #4:
+### [Makefile #4](Makefile.4):
 
 See [Colby's tutorial](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/) for an explanation of how this differs from the above.
 
@@ -144,15 +144,20 @@ hellomake: $(OBJ)
 	gcc -o $@ $^ $(CFLAGS)
 ```
 
-### Makefile #5:
+### [Makefile #5](src/Makefile):
 
 For this final version, we've split the files.  The .c source files are in [src/](src/) and the .h files are in [include/](include/).  This Makefile is stored in (and make is called from) the [src/](src/) directory.
 
 ```Makefile
 # This is stored as src/Makefile
+# This is slightly changed from the one in the source tutorial in order to create the obj/ directory automatically.
+# It's possible(/likely) that this isn't done in the preferred way.
+# I mostly just followed https://stackoverflow.com/questions/1950926/create-directories-using-make-file
+
 IDIR =../include
 CC=gcc
 CFLAGS=-I$(IDIR)
+MKDIR=mkdir -p
 
 ODIR=obj
 LDIR =../lib
@@ -165,11 +170,16 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 _OBJ = hellomake.o hellofunc.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
-$(ODIR)/%.o: %.c $(DEPS)
+all: hellomake
+
+$(ODIR):
+	$(MKDIR) $(ODIR)
+
+$(ODIR)/%.o: %.c $(DEPS) $(ODIR)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 hellomake: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS) $(LIBS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 
