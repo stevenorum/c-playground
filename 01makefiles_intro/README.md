@@ -1,4 +1,4 @@
-# makefiles101: Basic Makefile intro
+# makefiles_intro: Basic Makefile intro
 
 This is a slight rewrite of this [Colby College Makefile tutorial](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/).  All credit should go to them.  Mostly just rewritten to get it into a form that's a bit clearer to me, and also to better understand exactly what each part does.
 
