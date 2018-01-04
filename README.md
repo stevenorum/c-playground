@@ -19,6 +19,9 @@ The following are a bunch of places from which I've grabbed sample code.  I'll a
 ### General references used
 
 - https://fresh2refresh.com/c-programming/c-basic-program/
+- https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/
 
 ### StackOverflow and similar
+
 - https://stackoverflow.com/questions/1950926/create-directories-using-make-file
+- https://stackoverflow.com/questions/14296235/how-do-i-write-a-character-to-standard-output-in-c-without-using-stdio-h-or-any
