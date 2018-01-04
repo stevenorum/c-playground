@@ -1,6 +1,6 @@
-# pkg1: Basic compilation
+# makefiles101: Basic Makefile intro
 
-pkg1 is a slight rewrite of this [Colby College Makefile tutorial](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/).  All credit should go to them.  Mostly just rewritten to get it into a form that's a bit clearer to me, and also to better understand exactly what each part does.
+This is a slight rewrite of this [Colby College Makefile tutorial](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/).  All credit should go to them.  Mostly just rewritten to get it into a form that's a bit clearer to me, and also to better understand exactly what each part does.
 
 ## Methods of compilation
 
@@ -41,7 +41,7 @@ This is the most basic Makefile.  It does exactly the same thing as the command-
 
 ```Makefile
 # This is how you put a comment in a Makefile.
-# This is stored as Makefile.1 in this directory.
+# This is stored as Makefile.1
 hellomake: hellomake.c hellofunc.c
 	gcc -o hellomake hellomake.c hellofunc.c -I.
 ```
@@ -69,6 +69,7 @@ Hello makefiles!
 This is similar to #1, but a bit better.  First, it specifies its compiler and default flags in variables at the top, so that if more things get added and then you want to change these, you only need to chenge them in one place.  Second, it's compiling the source code into object files first, then generating the actual executable.  I don't think this makes any real difference for a tiny project like this, but it probably adds efficiency for larger projects when you don't always want to have to recompile every piece because another one changed.
 
 ```Makefile
+# This is stored as Makefile.2
 CC=gcc
 CFLAGS=-I.
 
@@ -110,7 +111,10 @@ ls: hellomake: No such file or directory
 
 ### Makefile #3:
 
+See [Colby's tutorial](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/) for an explanation of how this differs from the above.
+
 ```Makefile
+# This is stored as Makefile.3
 CC=gcc
 CFLAGS=-I.
 DEPS = hellomake.h
@@ -124,7 +128,10 @@ hellomake: hellomake.o hellofunc.o
 
 ### Makefile #4:
 
+See [Colby's tutorial](http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/) for an explanation of how this differs from the above.
+
 ```Makefile
+# This is stored as Makefile.4
 CC=gcc
 CFLAGS=-I.
 DEPS = hellomake.h
@@ -139,7 +146,10 @@ hellomake: $(OBJ)
 
 ### Makefile #5:
 
+For this final version, we've split the files.  The .c source files are in [src/](src/) and the .h files are in [include/](include/).  This Makefile is stored in (and make is called from) the [src/](src/) directory.
+
 ```Makefile
+# This is stored as src/Makefile
 IDIR =../include
 CC=gcc
 CFLAGS=-I$(IDIR)
@@ -165,4 +175,29 @@ hellomake: $(OBJ)
 
 clean:
 	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~
+```
+
+Here's what it looks like when it gets used:
+
+```Shell
+% ls
+Makefile	hellofunc.c	hellomake.c	obj
+% ls obj
+% make
+gcc -c -o obj/hellomake.o hellomake.c -I../include
+gcc -c -o obj/hellofunc.o hellofunc.c -I../include
+gcc -o hellomake obj/hellomake.o obj/hellofunc.o -I../include -lm
+% ls
+Makefile	hellofunc.c	hellomake	hellomake.c	obj
+% ls obj
+hellofunc.o	hellomake.o
+% ./hellomake
+Hello makefiles!
+% make clean
+rm -f obj/*.o *~ core /*~
+% ls
+Makefile	hellofunc.c	hellomake	hellomake.c	obj
+% ls obj
+% ./hellomake
+Hello makefiles!
 ```
